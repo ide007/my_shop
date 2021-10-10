@@ -1,9 +1,25 @@
 from django.shortcuts import render
 
+header_menu = [
+        {'href': '/', 'name': 'home'},
+        {'href': '/products/', 'name': 'products'},
+        {'href': '/contacts/', 'name': 'contacts'},
+]
+
 
 def main(request):
-    return render(request, 'my_shop/index.html')
+    title = "Магазин"
+    context = {
+        'title': title,
+        'header_menu': header_menu,
+    }
+    return render(request, 'my_shop/index.html', context)
 
 
 def contacts(request):
-    return render(request, 'my_shop/contact.html')
+    title = "Контакты"
+    context = {
+        'title': title,
+        'header_menu': header_menu,
+    }
+    return render(request, 'my_shop/contact.html', context)
