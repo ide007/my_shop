@@ -25,6 +25,7 @@ class ProductCategory(models.Model):
         return self.name
 
 class Product(models.Model):
+    objects = None
     category = models.ForeignKey(
         ProductCategory,
         on_delete=models.CASCADE

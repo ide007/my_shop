@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from mainapp.models import Product
 
 header_menu = [
         {'href': '/', 'name': 'home'},
@@ -9,8 +10,10 @@ header_menu = [
 
 def main(request):
     title = "Магазин"
+    products = Product.objects.all()[:4]
     context = {
         'title': title,
+        'products': products,
         'header_menu': header_menu,
     }
     return render(request, 'my_shop/index.html', context)
