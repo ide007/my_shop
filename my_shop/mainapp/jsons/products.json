@@ -1,0 +1,47 @@
+[
+  {
+      "category": "стулья",
+      "name": "славный стул",
+      "image": "product_image/product-2.jpg",
+      "shot_desc": "удобный и элегантный",
+      "description": "удобный и элегантный, очень прям ваще",
+      "price": "5500.00",
+      "quantity": 50
+  },
+  {
+      "category": "дом",
+      "name": "диван",
+      "image": "product_image/product-3-sm.jpg",
+      "shot_desc": "цвет серый",
+      "description": "серый, всегда удачный выбор",
+      "price": "15000.00",
+      "quantity": 5
+  },
+  {
+      "category": "офис",
+      "name": "лампа",
+      "image": "product_image/product-1.jpg",
+      "shot_desc": "нежный мягкий свет",
+      "description": "лампа сфера. матовая",
+      "price": "1199.00",
+      "quantity": 12
+  },
+  {
+      "category": "модерн",
+      "name": "часы",
+      "image": "product_image/product-4-sm.jpg",
+      "shot_desc": "очень точные",
+      "description": "",
+      "price": "1999.00",
+      "quantity": 25
+  },
+  {
+      "category": "классика",
+      "name": "классика2",
+      "image": "product_image/product-1-lg.jpg",
+      "shot_desc": "классика на все времена",
+      "description": "",
+      "price": "2099.00",
+      "quantity": 15
+  }
+]

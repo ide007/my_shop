@@ -2,9 +2,9 @@ from django.shortcuts import render
 from mainapp.models import Product
 
 header_menu = [
-        {'href': '/', 'name': 'home'},
-        {'href': '/products/', 'name': 'products'},
-        {'href': '/contacts/', 'name': 'contacts'},
+        {'href': '/', 'name': 'Главная'},
+        {'href': '/products/', 'name': 'Продукты'},
+        {'href': '/contacts/', 'name': 'Контакты'},
 ]
 
 
