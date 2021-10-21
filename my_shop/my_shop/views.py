@@ -5,6 +5,7 @@ header_menu = [
         {'href': '/', 'name': 'Главная'},
         {'href': '/products/', 'name': 'Продукты'},
         {'href': '/contacts/', 'name': 'Контакты'},
+        {'href': '/basket/', 'name': 'Корзина'},
 ]
 
 
