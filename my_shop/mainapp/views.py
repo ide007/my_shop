@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from mainapp.models import ProductCategory, Product
-from my_shop.views import header_menu
 
 
 def products(request, pk=None):
@@ -19,7 +18,6 @@ def products(request, pk=None):
 
         context = {
             'title': title,
-            'header_menu': header_menu,
             'links_menu': links_menu,
             'category': category,
             'products': products,
@@ -30,7 +28,6 @@ def products(request, pk=None):
 
     context = {
         'title': title,
-        'header_menu': header_menu,
         'links_menu': links_menu,
         'same_products': same_products,
         'products': products,
