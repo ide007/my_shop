@@ -57,3 +57,16 @@ def products(request, pk=None):
     }
 
     return render(request, 'mainapp/products.html', context)
+
+
+def product(request, pk):
+    title = 'Товар'
+    product = get_object_or_404(Product, pk=pk)
+    context = {
+        'title': title,
+        'links_menu': ProductCategory.objects.all(),
+        'product': product,
+        'same_products': get_same_products(product),
+        'basket': get_basket(request.user)
+    }
+    return render(request, 'mainapp/product.html', context)
