@@ -18,7 +18,7 @@
       "quantity": 5
   },
   {
-      "category": "офис",
+      "category": "светильники",
       "name": "лампа",
       "image": "product_image/product-1.jpg",
       "shot_desc": "нежный мягкий свет",
@@ -37,11 +37,38 @@
   },
   {
       "category": "классика",
-      "name": "классика2",
+      "name": "подушка",
       "image": "product_image/product-1-lg.jpg",
       "shot_desc": "классика на все времена",
-      "description": "",
+      "description": "классическая подушка, красная мозайка",
       "price": "2099.00",
       "quantity": 15
-  }
+  },
+  {
+      "category": "светильники",
+      "name": "торшер",
+      "image": "product_image/product-2-sm.jpg",
+      "shot_desc": "дизайнерский",
+      "description": "завораживает",
+      "price": "3500.00",
+      "quantity": 13
+  },
+  {
+      "category": "светильники",
+      "name": "настольная лампа",
+      "image": "product_image/product-31.jpg",
+      "shot_desc": "почти ночник",
+      "description": "Такую больше нигде не встретишь",
+      "price": "2001.00",
+      "quantity": 21
+  },
+  {
+    "category": "стулья",
+    "name": "стул белый",
+    "image": "product_image/product-21_dYTRA5O.jpg",
+    "shot_desc": "эргономичный стул",
+    "description": "ваш комфорт наше забота",
+    "price": "1350.00",
+    "quantity": 18
+}
 ]

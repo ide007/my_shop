@@ -8,18 +8,20 @@
 			<div class="featured-menu">
 					<a class="active" href="#">Популярные</a><a href="#">Новинки</a>
 			</div>
-			<a class="explore" href="#">показать все <img src="/static/my_shop/img/arrow.png" alt=""></a>
+			<a class="explore" href="{% url 'products:category' 0 %}" class="
+						  {% if request.resolver_match.kwargs.pk == 0 %}
+							active {% endif %}">показать все <img src="/static/my_shop/img/arrow.png" alt=""></a>
 			<div class="clearfix">
 			</div>
 			<div class="tab-content">
 				{% for product in products %}
 				<div class="block">
-					<a href="#"><img src="/media/{{ product.image }}" alt="">
+					<a href="{% url 'products:detail' product.pk %}"><img src="/media/{{ product.image }}" alt="">
 						<div class="text">
 							<img src="/static/my_shop/img/icon-hover.png" alt="img">
 							<h4>{{product.shot_desc}}</h4>
 							<p>{{product.description}}</p>
-						</div> 
+						</div>
 					</a>
 				</div>
 				{% endfor %}
