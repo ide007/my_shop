@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<main>
     <div class="user_delete">
         Уверены, что хотите удалить {{ user_to_delete.username }}
         {% if user_to_delete.first_name %}
@@ -21,4 +22,5 @@
           </a>
         </button>
     </div>
+</main>
 {% endblock %}

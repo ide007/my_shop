@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.shortcuts import render, get_object_or_404, reverse
 
 from adminapp.forms import ShopUserAdminEditForm
 from authapp.forms import ShopUserRegisterForm
@@ -59,7 +58,7 @@ def user_update(request, pk):
 
     context = {
         'title': title,
-        'user_form': edit_user
+        'user_form': edit_form
     }
 
     return render(request, 'adminapp/user_update.html', context)
@@ -68,6 +67,7 @@ def user_update(request, pk):
 @user_passes_test(lambda u: u.is_superuser)
 def user_delete(request, pk):
     title = 'пользователи/удаление'
+
     user = get_object_or_404(ShopUser, pk=pk)
 
     if request.method == 'POST':
@@ -77,7 +77,7 @@ def user_delete(request, pk):
 
     context = {
         'title': title,
-        'user_to_delete': user_delete
+        'user_to_delete': user
     }
 
     return render(request, 'adminapp/user_delete.html', context)
