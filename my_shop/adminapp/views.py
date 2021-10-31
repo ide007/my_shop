@@ -102,16 +102,16 @@ def category_create(request):
     title = 'Категории/создание'
 
     if request.method == 'POST':
-        category_form = ProductCategoryEditForm(request.POST, request.FILES)
-        if category_form.is_valid():
-            category_form.save()
+        edit_category_form = ProductCategoryEditForm(request.POST, request.FILES)
+        if edit_category_form.is_valid():
+            edit_category_form.save()
             return HttpResponseRedirect(reverse('admin_staff:categories'))
     else:
-        category_form = ProductCategoryEditForm()
+        edit_category_form = ProductCategoryEditForm()
 
     context = {
         'title': title,
-        'new_category': category_form
+        'edit_form': edit_category_form
     }
 
     return render(request, 'adminapp/category_update.html', context)
@@ -119,21 +119,21 @@ def category_create(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def category_update(request, pk):
-    title = 'Создание новой категории'
+    title = 'Категории/Редактирование'
 
-    edit_category = get_object_or_404(ProductCategory, pk=pk)
+    refactor_category = get_object_or_404(ProductCategory, pk=pk)
 
     if request.method == 'POST':
-        edit_form = ProductCategoryEditForm(request.POST, request.FILES, instance=edit_category)
-        if edit_form.is_valid():
-            edit_form.save()
+        category_form = ProductCategoryEditForm(request.POST, request.FILES, instance=refactor_category)
+        if category_form.is_valid():
+            category_form.save()
             return HttpResponseRedirect(reverse('admin_staff:categories'))
     else:
-        edit_form = ProductCategoryEditForm(instance=edit_category)
+        category_form = ProductCategoryEditForm(instance=refactor_category)
 
     context = {
         'title': title,
-        'edit_form': edit_form,
+        'edit_form': category_form,
     }
 
     return render(request, 'adminapp/category_update.html', context)
