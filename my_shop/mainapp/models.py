@@ -1,6 +1,8 @@
 from django.db import models
 
+
 class ProductCategory(models.Model):
+    objects = None
     name = models.CharField(
         max_length=64,
         verbose_name='Имя',
@@ -28,6 +30,7 @@ class ProductCategory(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     objects = None
@@ -75,7 +78,6 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.category.name})'
-
 
     class Meta:
         verbose_name = 'товар'
