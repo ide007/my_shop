@@ -123,76 +123,117 @@ class UserDeleteView(DeleteView):
 #     return render(request, 'adminapp/user_delete.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def categories(request):
-    title = 'админка/категории'
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = ProductCategory
+    template_name = 'adminapp/categories.html'
 
-    categories_list = ProductCategory.objects.all()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryListView, self).get_context_data()
+        context['title'] = 'админка/категории'
+        return context
 
-    content = {
-        'title': title,
-        'objects': categories_list
-    }
-
-    return render(request, 'adminapp/categories.html', content)
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def category_create(request):
-    title = 'Категории/создание'
-
-    if request.method == 'POST':
-        edit_category_form = ProductCategoryEditForm(request.POST, request.FILES)
-        if edit_category_form.is_valid():
-            edit_category_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:categories'))
-    else:
-        edit_category_form = ProductCategoryEditForm()
-
-    context = {
-        'title': title,
-        'edit_form': edit_category_form
-    }
-
-    return render(request, 'adminapp/category_update.html', context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def categories(request):
+#     title = 'админка/категории'
+#
+#     categories_list = ProductCategory.objects.all()
+#
+#     content = {
+#         'title': title,
+#         'objects': categories_list
+#     }
+#
+#     return render(request, 'adminapp/categories.html', content)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_update(request, pk):
-    title = 'Категории/Редактирование'
+class CategoryCreateView(LoginRequiredMixin, CreateView):
+    model = ProductCategory
+    form_class = ProductCategoryEditForm
+    template_name = 'adminapp/category_update.html'
+    success_url = reverse_lazy('admin_staff:categories')
 
-    refactor_category = get_object_or_404(ProductCategory, pk=pk)
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_create(request):
+#     title = 'Категории/создание'
+#
+#     if request.method == 'POST':
+#         edit_category_form = ProductCategoryEditForm(request.POST, request.FILES)
+#         if edit_category_form.is_valid():
+#             edit_category_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:categories'))
+#     else:
+#         edit_category_form = ProductCategoryEditForm()
+#
+#     context = {
+#         'title': title,
+#         'edit_form': edit_category_form
+#     }
+#
+#     return render(request, 'adminapp/category_update.html', context)
 
-    if request.method == 'POST':
-        category_form = ProductCategoryEditForm(request.POST, request.FILES, instance=refactor_category)
-        if category_form.is_valid():
-            category_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:categories'))
-    else:
-        category_form = ProductCategoryEditForm(instance=refactor_category)
 
-    context = {
-        'title': title,
-        'edit_form': category_form,
-    }
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
+    model = ProductCategory
+    form_class = ProductCategoryEditForm
+    template_name = 'adminapp/category_update.html'
+    success_url = reverse_lazy('admin_staff:categories')
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_update(request, pk):
+#     title = 'Категории/Редактирование'
+#
+#     refactor_category = get_object_or_404(ProductCategory, pk=pk)
+#
+#     if request.method == 'POST':
+#         category_form = ProductCategoryEditForm(request.POST, request.FILES, instance=refactor_category)
+#         if category_form.is_valid():
+#             category_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:categories'))
+#     else:
+#         category_form = ProductCategoryEditForm(instance=refactor_category)
+#
+#     context = {
+#         'title': title,
+#         'edit_form': category_form,
+#     }
+#
+#     return render(request, 'adminapp/category_update.html', context)
 
-    return render(request, 'adminapp/category_update.html', context)
+
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
+    model = ProductCategory
+    template_name = 'adminapp/category_delete.html'
+    success_url = reverse_lazy('admin_staff:categories')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def category_delete(request, pk):
+#     title = 'Удаление категории'
+#     category = get_object_or_404(ProductCategory, pk=pk)
+#     if request.method == 'POST':
+#         category.is_active = False
+#         category.save()
+#         return HttpResponseRedirect(reverse('admin_staff:categories'))
+#     context = {
+#         'title': title,
+#         'category_to_delete': category
+#     }
+#     return render(request, 'adminapp/category_delete.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_delete(request, pk):
-    title = 'Удаление категории'
-    category = get_object_or_404(ProductCategory, pk=pk)
-    if request.method == 'POST':
-        category.is_active = False
-        category.save()
-        return HttpResponseRedirect(reverse('admin_staff:categories'))
-    context = {
-        'title': title,
-        'category_to_delete': category
-    }
-    return render(request, 'adminapp/category_delete.html', context)
-
+# class ProductListView(LoginRequiredMixin, ListView):
+#     model = Product
+#     template_name = 'adminapp/products.html'
+#
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super(ProductListView, self).get_context_data()
+#         context['title'] = 'категории/товар'
+#         return context
 
 @user_passes_test(lambda u: u.is_superuser)
 def products(request, pk):
@@ -210,26 +251,32 @@ def products(request, pk):
     return render(request, 'adminapp/products.html', content)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def product_create(request, pk):
-    title = 'Товар/создание'
-    category = get_object_or_404(ProductCategory, pk=pk)
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Product
+    form_class = ProductEditForm
+    template_name = 'adminapp/product_update.html'
+    success_url = reverse_lazy('admin_staff:products')
 
-    if request.method == 'POST':
-        product_form = ProductEditForm(request.POST, request.FILES)
-        if product_form.is_valid():
-            product_form.save()
-            return HttpResponseRedirect(reverse('admin_staff:products', args=[pk]))
-    else:
-        product_form = ProductEditForm(initial={'category':category})
-
-    context = {
-        'title': title,
-        'product_form': product_form,
-        'category': category,
-    }
-
-    return render(request, 'adminapp/product_update.html', context)
+# @user_passes_test(lambda u: u.is_superuser)
+# def product_create(request, pk):
+#     title = 'Товар/создание'
+#     category = get_object_or_404(ProductCategory, pk=pk)
+#
+#     if request.method == 'POST':
+#         product_form = ProductEditForm(request.POST, request.FILES)
+#         if product_form.is_valid():
+#             product_form.save()
+#             return HttpResponseRedirect(reverse('admin_staff:products', args=[pk]))
+#     else:
+#         product_form = ProductEditForm(initial={'category':category})
+#
+#     context = {
+#         'title': title,
+#         'product_form': product_form,
+#         'category': category,
+#     }
+#
+#     return render(request, 'adminapp/product_update.html', context)
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -243,6 +290,12 @@ def product_read(request, pk):
 
     return render(request, 'adminapp/product_read.html', context)
 
+
+# class ProductUpdateView(LoginRequiredMixin, UpdateView):
+#     model = Product
+#     form_class = ProductEditForm
+#     template_name = 'adminapp/product_update.html'
+#     success_url = reverse_lazy('admin_staff:product_update')
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_update(request, pk):

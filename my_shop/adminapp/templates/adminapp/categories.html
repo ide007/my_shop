@@ -22,7 +22,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                         {% for category in objects %}
+                         {% for category in object_list %}
                             <tr {% if not category.is_active %} style="opacity: 0.5;" {% endif %}>
                                 <td>
                                     <a href="{% url 'admin_staff:category_update' category.pk %}" style="color: dodgerblue">{{ category.name|title }}</a>
