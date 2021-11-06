@@ -13,15 +13,15 @@
 			<div class="links clearfix">
 				<ul class="links-menu">
 					<li>
-						<a href="{% url 'products:category' 0 %}" class="
-						  {% if request.resolver_match.kwargs.pk == 0 %}
-							active {% endif %}">Всё
+						<a href="{% url 'products:category' 0 %}" class=" {% if request.resolver_match.kwargs.pk == 0 %}
+							  active {% endif %}">Всё
 						</a>
 					</li>
 					{% for link in links_menu %}
 						<li><a href="{% url 'products:category' link.pk %}" class="
-						  {% if request.resolver_match.kwargs.pk|add:'0' == link.pk %}
-							active {% endif %}">{{ link.name }}</a></li>
+							{% if request.resolver_match.kwargs.pk|add:'0' == link.pk %}
+							 active {% endif %}">{{ link.name }}
+						</a></li>
 					{% endfor %}
 				</ul>
 			</div>
@@ -29,21 +29,25 @@
 				<div class="details-products">
 				<div class="details-slider">
 					<div class="slider-product">
-						<img src="/media/{{ hot_product.image }}" style="width: 100%;">
+						<img src="/media/{{ hot_product.image }}"
+							 style="width: 100%;">
 					</div>
 					<div class="slider-control">
 						<div class="block">
-							<a href="#"><img src="{% static 'my_shop/img/controll.jpg' %}" alt="">
+							<a href="#"><img src="{% static
+							 'my_shop/img/controll.jpg' %}" alt="">
 								<div class="text"></div>
 							</a>
 						</div>
 						<div class="block">
-							<a href="#"><img src="{% static 'my_shop/img/controll1.jpg' %}" alt="">
+							<a href="#"><img src="{% static
+							 'my_shop/img/controll1.jpg' %}" alt="">
 								<div class="text"></div>
 							</a>
 						</div>
 						<div class="block">
-							<a href="#"><img src="{% static 'my_shop/img/controll2.jpg' %}" alt="">
+							<a href="#"><img src="{% static
+							'my_shop/img/controll2.jpg' %}" alt="">
 								<div class="text"></div>
 							</a>
 						</div>
@@ -53,9 +57,12 @@
 				<div class="description">
 					<h3 class="big-bold">{{ hot_product.name|title }}</h3>
 					<h3 class="red">горячее предложение</h3>
-					<p class="price"> {{ hot_product.price }} <span>руб</span></p>
-					<a href="{% url 'products:detail' hot_product.pk %}" class="red-button">
-						заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
+					<p class="price"> {{ hot_product.price }}
+						<span>руб</span></p>
+					<a href="{% url 'products:detail' hot_product.pk %}"
+					   class="red-button">
+						заказать <i class="fa fa-chevron-right"
+									aria-hidden="true"></i>
 					</a>
 					<div class="description-text">
 						{{ hot_product.description }}
@@ -63,66 +70,69 @@
 				</div>
 			</div>
 			{% endif %}
-			<div class="products_list">
+			<div class="related">
 				<div class="title clearfix">
 					{% if category %}
-						<h2>Категория: "{{ category.name|title }}"</h2>
+						<h2>
+							Категория: "{{ category.name|title }}"
+						</h2>
 				    {% endif %}
-				</div>
-				<div class="paginator">
-                {% if products.has_previous %}
-                    <a href="{% url 'products:page' category.pk
-                    products.previous_page_number %}"> < </a>
-                {% endif %}
-                <span class="current">
-                                страница {{ products.number }} из
-                                {{ products.paginator.num_pages }}
-                              </span>
-                {% if products.has_next %}
-                    <a href="{% url 'products:page' category.pk products.next_page_number %}">
-                        >
-                    </a>
-                {% endif %}
-            	</div>
-        	</div>
-					  <div class="category-products clearfix">
-
-						{% for product in products %}
-						  <div class="block">
-							<a href="{% url 'products:detail' product.pk %}">
-							  <img src="/media/{{ product.image }}" alt="product" style="width: 100%;">
-							  <div class="text">
-								<img src="{% static 'my_shop/img/icon-hover.png' %}" alt="hover">
-								  <h4>{{ product.name }}</h4>
-								  <p>{{ product.description }}</p>
-							  </div>
-							</a>
-						  </div>
-						{% endfor %}
-
-					  </div>
-				</div>
-
-			{% if same_products %}
-				<div class="related">
-				<div class="title clearfix">
-					<h2>Похожие продукты</h2>
-					<a class="explore" href="#">показать все <img src="/media/{{ same_product.image }}" alt=""></a>
-				</div>
-				<div class="related-products clearfix">
-					{% for same_product in same_products %}
+					<div class="category-products products">
+					{% for product in products %}
 						<div class="block">
-							<a href="{% url 'products:detail' same_product.pk %}"><img src="/media/{{ same_product.image }}" alt="">
+							<a href="{% url 'products:detail' product.pk %}">
+								<img src="/media/{{ product.image }}"
+									 alt="products" style="width: 100%;">
 								<div class="text">
-									<img src="{% static 'my_shop/img/icon-hover.png' %}" alt="img" style="width: 100%;">
-									<h4>{{ same_product.name }}</h4>
-									<p>{{ same_product.description }}</p>
+									<img src="{% static 'my_shop/img/icon-hover.png' %}" alt="">
+									<h4>{{ product.name }}</h4>
+									<p>{{ product.description }}</p>
 								</div>
 							</a>
 						</div>
 					{% endfor %}
+					</div>
 				</div>
 			</div>
+			{% if products.number %}
+				<div class="paginator">
+					{% if products.has_previous %}
+						<a href="{% url 'products:page' category.pk
+						 products.previous_page_number %}">
+							<
+						</a>
+					{% endif %}
+					<span class="current"> страница {{ products.number }}
+						из {{ products.paginator.num_pages }}
+					</span>
+					{% if products.has_next %}
+						<a href="{% url 'products:page' category.pk products.next_page_number %}"> > </a>
+					{% endif %}
+				</div>
 			{% endif %}
+        	</div>
+		{% if same_products %}
+			<div class="related container">
+			<div class="title clearfix">
+				<h2>Похожие продукты</h2>
+				<a class="explore" href="#">показать все <img src="{% static 'my_shop/img/icon-hover.png' %}" alt=""></a>
+			</div>
+			<div class="related-products clearfix">
+				{% for same_product in same_products %}
+					<div class="block">
+						<a href="{% url 'products:detail' same_product.pk %}">
+							<img src="/media/{{ same_product.image }}"
+								 alt="products" style="width: 100%;">
+							<div class="text">
+								<img src="{% static 'my_shop/img/icon-hover.png' %}" alt="hover">
+								<h4>{{ same_product.name }}</h4>
+								<p>{{ same_product.description }}</p>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
 		</div>
 {% endblock %}

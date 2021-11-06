@@ -71,21 +71,6 @@
 	line-height: 48px;
 	text-align: center;
 }
-.category-products {
-	display: flex;
-	justify-content: space-evenly;
-}
-.products .block a img {
-	float: left;
-}
-.products .block {
-	float: left;
-	margin: 15px;
-	display: block;
-	height: 370px;
-	width: 370px;
-	position: relative;
-}
 .red {
 	text-transform: uppercase;
 	color: #e53935;
@@ -95,4 +80,9 @@
 	letter-spacing: 1px;
 	line-height: 17px;
 	margin-bottom: 22px;
+}
+.paginator {
+	width: 100%;
+    float: left;
+    padding-left: 15px;
 }

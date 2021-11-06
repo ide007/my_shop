@@ -364,7 +364,7 @@ html, body {
 
 .trending-products {
 	margin-top: 53px;
-	
+
 }
 .trending-products .block a img {
 	float: left;
@@ -430,7 +430,7 @@ html, body {
 }
 .exclusive-big {
 	height: 570px;
-	width: 570px;	
+	width: 570px;
 	float: left;
 	background-image: url(img/product-1-lg.jpg);
 }
@@ -562,7 +562,7 @@ html, body {
 	margin-right: 0;
 }
 .text-footer h3 {
-	text-transform: uppercase; 
+	text-transform: uppercase;
 	color:  #6c6c6c;
 	font-size: 18px;
 	font-weight: 700;
@@ -751,8 +751,8 @@ td:first-child {
 .tab-control li {
 	float: left;
 	border-bottom: 1px solid #6c6c6c;
-	padding-bottom: 19px;	
-} 
+	padding-bottom: 19px;
+}
 .tab-control a {
 	color: #6c6c6c;
 	font-size: 18px;
@@ -847,7 +847,7 @@ td:first-child {
 	padding-left: 360px;
 }
 .links-menu {
-	margin:	27px auto 0px;	
+	margin:	27px auto 0px;
 	position: absolute;
 }
 .links-menu li {
@@ -882,7 +882,7 @@ td:first-child {
 	padding-left: 98px;
 	padding-right: 98px;
 	margin-top: 98px;
-	height: 651px; 
+	height: 651px;
 }
 
 .red-button {
