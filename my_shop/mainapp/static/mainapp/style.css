@@ -31,7 +31,6 @@
 .slider-control a:hover .text {
 	display: block;
 }
-
 .description {
 	width: 485px;
 	float: right;
@@ -85,4 +84,7 @@
 	width: 100%;
     float: left;
     padding-left: 15px;
+}
+.related .title h2 {
+	margin-top: 70px;
 }

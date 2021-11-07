@@ -55,7 +55,7 @@ def products(request, pk=None, page=1):
             'links_menu': links_menu,
             'category': category,
             'products': product_paginator,
-            'basket': basket,
+            # 'basket': basket,
             'paginator': paginator,
         }
         return render(request, 'mainapp/products.html', context)
@@ -65,7 +65,7 @@ def products(request, pk=None, page=1):
     products = Product.objects.filter(
         is_active=True,
         category__is_active=True
-    ).order_by('-price')[:3]
+    ).order_by('-price')[:2]
 
     context = {
         'title': title,
@@ -73,7 +73,7 @@ def products(request, pk=None, page=1):
         'hot_product': hot_product,
         'same_products': same_products,
         'products': products,
-        'basket': basket,
+        # 'basket': basket,
     }
 
     return render(request, 'mainapp/products.html', context)
@@ -88,6 +88,6 @@ def product(request, pk):
         'links_menu': ProductCategory.objects.all(),
         'product': product,
         'same_products': get_same_products(product),
-        'basket': get_basket(request.user)
+        # 'basket': get_basket(request.user)
     }
     return render(request, 'mainapp/product.html', context)
