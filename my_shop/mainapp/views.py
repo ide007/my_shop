@@ -25,7 +25,7 @@ def get_same_products(hot_product):
 def products(request, pk=None, page=1):
     title = 'Каталог'
     links_menu = ProductCategory.objects.all()
-    basket = get_basket(request.user)
+    # basket = get_basket(request.user)
 
     if pk is not None:
         if pk == 0:
@@ -56,7 +56,6 @@ def products(request, pk=None, page=1):
             'category': category,
             'products': product_paginator,
             # 'basket': basket,
-            'paginator': paginator,
         }
         return render(request, 'mainapp/products.html', context)
 
@@ -66,13 +65,20 @@ def products(request, pk=None, page=1):
         is_active=True,
         category__is_active=True
     ).order_by('-price')[:2]
+    paginator = Paginator(products, 2)
+    try:
+        product_paginator = paginator.page(page)
+    except PageNotAnInteger:
+        product_paginator = paginator.page(1)
+    except EmptyPage:
+        product_paginator = paginator.page(paginator.num_pages)
 
     context = {
         'title': title,
         'links_menu': links_menu,
         'hot_product': hot_product,
         'same_products': same_products,
-        'products': products,
+        'products': product_paginator,
         # 'basket': basket,
     }
 
