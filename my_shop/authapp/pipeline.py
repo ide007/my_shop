@@ -17,7 +17,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                           'api.vk.com',
                           '/method/users.get',
                           None,
-                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about')),
+                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'status')),
                                                 access_token=response['access_token'],
                                                 v='5.131')),
                           None
@@ -32,12 +32,16 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         user.shopuserprofile.gender = ShopUserProfile.MALE if data['sex'] == 2 else ShopUserProfile.FEMALE
 
     if data['about']:
-        user.shopuserprofile.aboutMe = data['about']
+        user.shopuserprofile.about_me = data['about']
+
+    if data['status']:
+        user.shopuserprofile.tagline = data['status']
 
     if data['bdate']:
         bdate = datetime.strptime(data['bdate'], '%d.%m.%Y').date()
 
         age = timezone.now().date().year - bdate.year
+        user.age = age
         if age < 18:
             user.delete()
             raise AuthForbidden('social_core.backends.vk.VKOAuth2')
