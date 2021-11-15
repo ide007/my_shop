@@ -51,10 +51,6 @@ class Order(models.Model):
         verbose_name = 'заказ'
         verbose_name_plural = 'заказы'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.orderitems = None
-
     def __str__(self):
         return f'Заказ: {self.id}'
 
@@ -94,6 +90,10 @@ class OrderItem(models.Model):
         verbose_name='количество',
         default=0,
     )
+
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.filter(pk=pk).first()
 
     def get_product_cost(self):
         return self.product.price * self.quantity
