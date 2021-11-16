@@ -135,6 +135,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "my_shop", "static"),
+    os.path.join(BASE_DIR, "ordersapp", "static"),
 )
 
 STATICFILES_FINDERS = [
