@@ -25,16 +25,22 @@ class OrderCreate(CreateView):
     model = Order
     fields = []
     success_url = reverse_lazy('orders:orders_list')
+    extra_context = {'title': 'Создать заказ'}
 
     def get_context_data(self, **kwargs):
         context = super(OrderCreate, self).get_context_data(**kwargs)
-        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(
+            Order,
+            OrderItem,
+            form=OrderItemForm,
+            extra=1
+        )
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
         else:
             basket_items = Basket.objects.filter(user=self.request.user)
-            if len(basket_items):
+            if basket_items:
                 OrderFormSet = inlineformset_factory(
                     Order,
                     OrderItem,
@@ -50,8 +56,8 @@ class OrderCreate(CreateView):
                 basket_items.delete()
             else:
                 formset = OrderFormSet()
-        context['orderitems'] = formset
 
+        context['orderitems'] = formset
         return context
 
     def form_valid(self, form):
@@ -75,10 +81,16 @@ class OrderUpdate(UpdateView):
     model = Order
     fields = []
     success_url = reverse_lazy('orders:orders_list')
+    extra_context = {'title': 'Редактирование заказа'}
 
     def get_context_data(self, **kwargs):
         context = super(OrderUpdate, self).get_context_data(**kwargs)
-        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(
+            Order,
+            OrderItem,
+            form=OrderItemForm,
+            extra=1
+        )
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, instance=self.object)
@@ -87,8 +99,8 @@ class OrderUpdate(UpdateView):
             for form in formset.forms:
                 if form.instance.pk:
                     form.initial['price'] = form.instance.product.price
-        context['orderitems'] = formset
 
+        context['orderitems'] = formset
         return context
 
     def form_valid(self, form):
@@ -116,7 +128,7 @@ class OrderDelete(DeleteView):
 
 class OrderRead(DetailView):
     model = Order
-    extra_context = {'title': 'Просмотр содержимого заказы'}
+    extra_context = {'title': 'Просмотр содержимого заказа'}
 
 
 def order_forming_complete(request, pk):
@@ -132,7 +144,8 @@ def order_forming_complete(request, pk):
 def product_quantity_update_save(sender, update_fields, instance, **kwargs):
     if update_fields is 'quantity' or 'product':
         if instance.pk:
-            instance.product.quantity -=instance.quantity - sender.get_item(instance.pk).quantity
+            instance.product.quantity -= \
+                instance.quantity - sender.get_item(instance.pk).quantity
         else:
             instance.product.quantity -= instance.quantity
         instance.product.save()
