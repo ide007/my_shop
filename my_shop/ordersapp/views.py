@@ -6,8 +6,10 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
+from django.http import JsonResponse
 
 from basketapp.models import Basket
+from mainapp.models import Product
 from ordersapp.models import Order, OrderItem
 from ordersapp.forms import OrderItemForm
 
@@ -128,7 +130,7 @@ def order_forming_complete(request, pk):
 @receiver(pre_save, sender=OrderItem)
 @receiver(pre_save, sender=Basket)
 def product_quantity_update_save(sender, update_fields, instance, **kwargs):
-    if update_fields == 'quantity' or update_fields == 'product':
+    if update_fields is 'quantity' or 'product':
         if instance.pk:
             instance.product.quantity -=instance.quantity - sender.get_item(instance.pk).quantity
         else:
@@ -141,3 +143,12 @@ def product_quantity_update_save(sender, update_fields, instance, **kwargs):
 def product_quantity_update_delete(sender, instance, **kwargs):
     instance.product.quantity += instance.quantity
     instance.product.save()
+
+
+def get_product_price(request, pk):
+    if request.is_ajax():
+        product = Product.objects.filter(pk=int(pk)).first()
+        if product:
+            return JsonResponse({'price': product.price})
+        else:
+            return JsonResponse({'price': 0})
