@@ -1,0 +1,74 @@
+[
+  {
+      "category": "стулья",
+      "name": "славный стул",
+      "image": "product_image/product-2.jpg",
+      "shot_desc": "удобный и элегантный",
+      "description": "удобный и элегантный, очень прям ваще",
+      "price": "5500.00",
+      "quantity": 50
+  },
+  {
+      "category": "дом",
+      "name": "диван",
+      "image": "product_image/product-3-sm.jpg",
+      "shot_desc": "цвет серый",
+      "description": "серый, всегда удачный выбор",
+      "price": "15000.00",
+      "quantity": 5
+  },
+  {
+      "category": "светильники",
+      "name": "лампа",
+      "image": "product_image/product-1.jpg",
+      "shot_desc": "нежный мягкий свет",
+      "description": "лампа сфера. матовая",
+      "price": "1199.00",
+      "quantity": 12
+  },
+  {
+      "category": "модерн",
+      "name": "часы",
+      "image": "product_image/product-4-sm.jpg",
+      "shot_desc": "очень точные",
+      "description": "",
+      "price": "1999.00",
+      "quantity": 25
+  },
+  {
+      "category": "классика",
+      "name": "подушка",
+      "image": "product_image/product-1-lg.jpg",
+      "shot_desc": "классика на все времена",
+      "description": "классическая подушка, красная мозайка",
+      "price": "2099.00",
+      "quantity": 15
+  },
+  {
+      "category": "светильники",
+      "name": "торшер",
+      "image": "product_image/product-2-sm.jpg",
+      "shot_desc": "дизайнерский",
+      "description": "завораживает",
+      "price": "3500.00",
+      "quantity": 13
+  },
+  {
+      "category": "светильники",
+      "name": "настольная лампа",
+      "image": "product_image/product-31.jpg",
+      "shot_desc": "почти ночник",
+      "description": "Такую больше нигде не встретишь",
+      "price": "2001.00",
+      "quantity": 21
+  },
+  {
+    "category": "стулья",
+    "name": "стул белый",
+    "image": "product_image/product-21_dYTRA5O.jpg",
+    "shot_desc": "эргономичный стул",
+    "description": "ваш комфорт наше забота",
+    "price": "1350.00",
+    "quantity": 18
+}
+]
