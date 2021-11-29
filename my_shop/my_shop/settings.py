@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'ordersapp',
 
     'social_django',
+    'debug_toolbar',
+    'template_profiler_panel',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'my_shop.urls'
