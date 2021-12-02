@@ -20,8 +20,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-INTERNAL_IPS = ['127.0.0.1']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
     'social_django',
     'debug_toolbar',
     'template_profiler_panel',
+    'django_extensions',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -51,6 +50,7 @@ AUTHENTICATION_BACKENDS = (
 AUTH_USER_MODEL = 'authapp.ShopUser'
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'my_shop.urls'
@@ -75,10 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-
                 'mainapp.context_processors.basket',
             ],
         },
@@ -138,6 +135,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "my_shop", "static"),
     os.path.join(BASE_DIR, "ordersapp", "static"),
@@ -191,6 +190,7 @@ if DEBUG:
     def show_toolbar(request):
         return True
 
+    INTERNAL_IPS = ['127.0.0.1',]
 
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
