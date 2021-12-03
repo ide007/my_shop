@@ -17,7 +17,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
     import debug_toolbar
     import mimetypes
 
