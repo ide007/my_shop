@@ -31,7 +31,7 @@ def products(request, pk=None, page=1):
             products = Product.objects.filter(
                 is_active=True,
                 category__is_active=True
-            ).order_by('-price')
+            ).select_related('category')
             category = {'pk': 0, 'name': 'все'}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
@@ -39,7 +39,7 @@ def products(request, pk=None, page=1):
                 category__pk=pk,
                 is_active=True,
                 category__is_active=True
-            ).order_by('-price')
+            ).select_related('category')
 
         paginator = Paginator(products, 2)
         try:
@@ -63,7 +63,7 @@ def products(request, pk=None, page=1):
     products = Product.objects.filter(
         is_active=True,
         category__is_active=True
-    ).order_by('-price')[:2]
+    ).select_related('category')[:2]
     paginator = Paginator(products, 2)
     try:
         product_paginator = paginator.page(page)
