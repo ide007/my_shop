@@ -81,7 +81,7 @@ class Product(models.Model):
         return Product.objects.filter(
             is_active=True,
             quantity__gte=1
-        ).order_by('category', 'name')
+        ).select_related('category')
 
     def __str__(self):
         return f'{self.name} ({self.category.name})'
